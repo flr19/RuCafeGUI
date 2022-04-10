@@ -1,6 +1,12 @@
 package sample;
 
+
 public class Coffee extends MenuItem implements  Customizable{
+
+    private static final int ISSHORT = 1;
+    private static final int ISTALL = 2;
+    private static final int ISVENTI = 3;
+    private static final int ISGRANDE = 4;
 
     private int coffeeSize;
     private boolean hasCream;
@@ -9,61 +15,73 @@ public class Coffee extends MenuItem implements  Customizable{
     private boolean hasCaramel;
     private boolean hasWhippedCream;
 
-    public Coffee (int size) {
-        super(size);
+    public Coffee (int coffeeSize, int numItems) {
+        super(numItems);
+        this.coffeeSize = 1; //Short
+        hasCream = false;
+        hasSyrup = false;
+        hasMilk = false;
+        hasCaramel = false;
+        hasWhippedCream = false;
     }
 
     public void setSize(String coffeeSize) {
         if(coffeeSize.equals("Short")) {
-            this.coffeeSize = 1;
+            this.coffeeSize = ISSHORT;
         }
         else if (coffeeSize.equals("Tall")) {
-            this.coffeeSize = 2;
+            this.coffeeSize = ISTALL;
         }
         else if (coffeeSize.equals("Venti")) {
-            this.coffeeSize = 3;
+            this.coffeeSize = ISVENTI;
         }
         else if (coffeeSize.equals("Grande")) {
-            this.coffeeSize = 4;
+            this.coffeeSize = ISGRANDE;
+        }
+    }
+    @Override
+    public boolean add(Object obj) {
+        if (obj instanceof String) {
+            String addOn = (String) obj;
+            if (addOn.equals("Cream")) {
+                hasCream = true;
+            } else if (addOn.equals("Syrup")) {
+                hasSyrup = true;
+            } else if (addOn.equals("Milk")) {
+                hasMilk = true;
+            } else if (addOn.equals("Caramel")) {
+                hasCaramel = true;
+            } else if (addOn.equals("Whipped Cream")) {
+                hasWhippedCream = true;
+            } else {
+                return false;
+            }
+            return true;
+        } else {
+            return false;
         }
     }
 
-
     @Override
-    public void add (String addOn) {
-        if(addOn.equals("Cream")) {
-            hasCream=true;
-        }
-        else if(addOn.equals("Syrup")) {
-            hasSyrup=true;
-        }
-        else if(addOn.equals("Milk")) {
-            hasMilk=true;
-        }
-        else if(addOn.equals("Caramel")) {
-            hasCaramel=true;
-        }
-        else if(addOn.equals("Whipped Cream")) {
-            hasWhippedCream=true;
-        }
-    }
-
-    @Override
-    public void remove (String addOn) {
-        if(addOn.equals("Cream")) {
-            hasCream=false;
-        }
-        else if(addOn.equals("Syrup")) {
-            hasSyrup=false;
-        }
-        else if(addOn.equals("Milk")) {
-            hasMilk=false;
-        }
-        else if(addOn.equals("Caramel")) {
-            hasCaramel=false;
-        }
-        else if(addOn.equals("Whipped Cream")) {
-            hasWhippedCream=false;
+    public boolean remove (Object obj) {
+        if (obj instanceof String) {
+            String addOn = (String) obj;
+            if (addOn.equals("Cream")) {
+                hasCream = false;
+            } else if (addOn.equals("Syrup")) {
+                hasSyrup = false;
+            } else if (addOn.equals("Milk")) {
+                hasMilk = false;
+            } else if (addOn.equals("Caramel")) {
+                hasCaramel = false;
+            } else if (addOn.equals("Whipped Cream")) {
+                hasWhippedCream = false;
+            } else {
+                return false;
+            }
+            return true;
+        } else {
+            return false;
         }
     }
 
@@ -98,7 +116,68 @@ public class Coffee extends MenuItem implements  Customizable{
         if(hasWhippedCream){
             numAddIns++;
         }
-        price = price + (numAddIns*0.30);
-        return price;
+        price += (numAddIns*0.30);
+        return price*getNumItems();
+    }
+
+    @Override
+    public boolean equals(Object obj){
+        if(obj instanceof Coffee){
+            Coffee coffee = (Coffee)obj;
+            if(coffeeSize == coffee.coffeeSize) {
+                if(hasCream == coffee.hasCream  && hasSyrup == coffee.hasSyrup && hasMilk == coffee.hasMilk &&
+                        hasCaramel == coffee.hasCaramel && hasWhippedCream == coffee.hasWhippedCream){
+                    if(getNumItems() == coffee.getNumItems()){
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
+
+    @Override
+    public String toString(){
+        return  "Coffee - " + getCoffeeType() + getAddIns() + "(" + getNumItems() + ")" + " ---> $" + itemPrice();
+    }
+
+    public String getCoffeeType(){
+        if (coffeeSize == ISSHORT){
+            return "Short";
+        }
+        else if (coffeeSize == ISTALL){
+            return "Tall";
+        }
+        else if (coffeeSize == ISVENTI){
+            return "Venti";
+        }
+        return "Grande";
+    }
+
+    public String getAddIns(){
+        String result = " ";
+
+        if(hasCream) {
+            result = result + "Cream, ";
+        }
+        if(hasSyrup) {
+            result = result + "Syrup, ";
+        }
+        if(hasMilk) {
+            result = result + "Milk, ";
+        }
+        if(hasCaramel) {
+            result = result + "Caramel, ";
+        }
+        if(hasWhippedCream){
+            result = result + "Whipped Cream, ";
+        }
+
+        if (result.length() == 1) {
+            return " ";
+        }
+
+        return " [" + result.substring(1, result.length()-2) + "] ";
+
     }
 }
