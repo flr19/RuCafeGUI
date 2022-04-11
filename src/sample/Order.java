@@ -40,9 +40,10 @@ public class Order implements Customizable{
 
     @Override
     public boolean remove(Object obj) {
-        if(obj instanceof MenuItem) {
-            MenuItem item = (MenuItem) obj;
-            return orders.remove(item);
+        if(obj instanceof Integer) {
+            int index = (Integer)obj;
+            orders.remove(index);
+            return true;
         }
         return false;
     }
@@ -60,10 +61,8 @@ public class Order implements Customizable{
 
     public ArrayList<String> toStringList(){
         ArrayList<String> result = new ArrayList<String>();
-        result.add("Order Number: " + getOrderNum());
-        result.add("Total Cost: " + getTotalPrice());
         for(int i = 0; i < orders.size(); i++) {
-            result.add("Item " + (i+1) + ": " + orders.toString());
+            result.add("Item " + (i+1) + ": " + orders.get(i).toString());
         }
         return result;
     }

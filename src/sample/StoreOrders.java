@@ -1,5 +1,6 @@
 package sample;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class StoreOrders implements Customizable{
@@ -25,9 +26,14 @@ public class StoreOrders implements Customizable{
 
     @Override
     public boolean remove(Object obj) {
-        if(obj instanceof Order) {
-            Order order = (Order) obj;
-            storeOrders.remove(order);
+        if(obj instanceof Integer) {
+            int orderNumber = (Integer)obj;
+            for (int i = 0; i < storeOrders.size(); i++){
+                if(storeOrders.get(i).getOrderNum() == orderNumber){
+                    storeOrders.remove(i);
+                    return true;
+                }
+            }
         }
         return false;
     }
@@ -46,5 +52,31 @@ public class StoreOrders implements Customizable{
             result.addAll(storeOrders.get(i).toStringList());
         }
         return result;
+    }
+
+    public ArrayList<String> getOrder(int orderNum){
+        for(int i = 0; i < storeOrders.size(); i++){
+            if(storeOrders.get(i).getOrderNum() == orderNum){
+                return storeOrders.get(i).toStringList();
+            }
+        }
+        return new ArrayList<String>(); //returning an empty list
+    }
+
+    public ArrayList<Integer> getOrderNumber(){
+        ArrayList<Integer> result = new ArrayList<Integer>();
+        for(int i = 0; i < storeOrders.size(); i++){
+            result.add(storeOrders.get(i).getOrderNum());
+        }
+        return result;
+    }
+
+    public double getCost(int orderNum) {
+        for(int i = 0; i < storeOrders.size(); i++){
+            if(storeOrders.get(i).getOrderNum() == orderNum){
+                return storeOrders.get(i).getTotalPrice();
+            }
+        }
+        return -1;
     }
 }

@@ -5,8 +5,8 @@ public class Coffee extends MenuItem implements  Customizable{
 
     private static final int ISSHORT = 1;
     private static final int ISTALL = 2;
-    private static final int ISVENTI = 3;
-    private static final int ISGRANDE = 4;
+    private static final int ISGRANDE = 3;
+    private static final int ISVENTI = 4;
 
     private int coffeeSize;
     private boolean hasCream;
@@ -32,11 +32,11 @@ public class Coffee extends MenuItem implements  Customizable{
         else if (coffeeSize.equals("Tall")) {
             this.coffeeSize = ISTALL;
         }
-        else if (coffeeSize.equals("Venti")) {
-            this.coffeeSize = ISVENTI;
-        }
         else if (coffeeSize.equals("Grande")) {
             this.coffeeSize = ISGRANDE;
+        }
+        else if (coffeeSize.equals("Venti")) {
+            this.coffeeSize = ISVENTI;
         }
     }
     @Override
@@ -88,19 +88,8 @@ public class Coffee extends MenuItem implements  Customizable{
     @Override
     public double itemPrice () {
         int numAddIns = 0;
-        double price = 0;
-        if(coffeeSize == 1) {
-            price = 1.69;
-        }
-        else if(coffeeSize == 2) {
-            price= 2.09;
-        }
-        else if (coffeeSize == 3) {
-            price = 2.49;
-        }
-        else if (coffeeSize == 4) {
-            price = 2.89;
-        }
+        double price = 1.69;
+        price += 0.4*(coffeeSize-1);
         if(hasCream) {
             numAddIns++;
         }
@@ -148,10 +137,10 @@ public class Coffee extends MenuItem implements  Customizable{
         else if (coffeeSize == ISTALL){
             return "Tall";
         }
-        else if (coffeeSize == ISVENTI){
-            return "Venti";
+        else if (coffeeSize == ISGRANDE){
+            return "Grande";
         }
-        return "Grande";
+        return "Venti";
     }
 
     public String getAddIns(){
