@@ -20,6 +20,7 @@ public class StoreOrders implements Customizable{
                 //new order number is 1 + last Order Number
             }
             storeOrders.add(order);
+            return true;
         }
         return false;
     }
@@ -77,6 +78,6 @@ public class StoreOrders implements Customizable{
                 return storeOrders.get(i).getTotalPrice();
             }
         }
-        return -1;
+        return 0;
     }
 }

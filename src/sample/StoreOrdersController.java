@@ -10,7 +10,9 @@ import javafx.scene.control.TextField;
 
 public class StoreOrdersController {
 
-    private StoreOrders orders;
+    private static StoreFrontController mainController;
+
+    private static StoreOrders storeOrders;
 
     @FXML
     private TextField getTotalCost;
@@ -21,45 +23,46 @@ public class StoreOrdersController {
     @FXML
     private ListView<String> ordersList;
 
-    public StoreOrdersController(){
-        //nothing
-    }
-
     @FXML
-    private void initialize(){
-        ordersList = new ListView<String>();
+    private void preset(){
+        ordersList.getItems().clear();
         ObservableList<Integer> orderNums =
-                        FXCollections.observableArrayList(orders.getOrderNumber());
-        orderNumber = new ComboBox<Integer>();
+                        FXCollections.observableArrayList(storeOrders.getOrderNumber());
         orderNumber.setItems(orderNums);
+        getTotalCost.clear();
         getTotalCost.appendText("$ " + 0.0);
     }
 
     @FXML
     void cancelSelectedOrder(ActionEvent event) {
-        orders.remove(orderNumber.getSelectionModel().getSelectedItem());
-        ordersList = new ListView<String>();
-        ObservableList<Integer> orderNums =
-                FXCollections.observableArrayList(orders.getOrderNumber());
-        orderNumber = new ComboBox<Integer>();
-        orderNumber.setItems(orderNums);
-        getTotalCost.clear();
-        getTotalCost.appendText("$ " + 0.0);
+        if(orderNumber.getSelectionModel().getSelectedItem() != null) {
+            storeOrders.remove(orderNumber.getSelectionModel().getSelectedItem());
+            preset();
+        }
     }
 
     @FXML
     void exportOrder(ActionEvent event) {
         //farah writes the code
+        return;
     }
 
     @FXML
     void showOrder(ActionEvent event) {
-        int orderN = orderNumber.getSelectionModel().getSelectedItem();
-        ObservableList<String> orderDetails =
-                FXCollections.observableArrayList(orders.getOrder(orderN));
-        ordersList = new ListView<String>(orderDetails);
-        getTotalCost.clear();
-        getTotalCost.appendText("$ " + orders.getCost(orderN));
+        if(orderNumber.getSelectionModel().getSelectedItem() != null) {
+            int orderN = orderNumber.getSelectionModel().getSelectedItem();
+            ObservableList<String> orderDetails =
+                    FXCollections.observableArrayList(storeOrders.getOrder(orderN));
+            ordersList.setItems(orderDetails);
+            getTotalCost.clear();
+            getTotalCost.appendText("$ " + storeOrders.getCost(orderN));
+        }
+    }
+
+    public void setMainController(StoreFrontController storeFrontController) {
+        mainController = storeFrontController;
+        storeOrders = mainController.storeOrders;
+        preset();
     }
 
 }

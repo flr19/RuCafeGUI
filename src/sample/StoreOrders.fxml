@@ -12,7 +12,7 @@
 <?import javafx.scene.text.Text?>
 
 
-<AnchorPane prefHeight="371.0" prefWidth="574.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="371.0" prefWidth="574.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.StoreOrdersController">
    <children>
       <BorderPane layoutX="31.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="342.0" prefWidth="512.0" AnchorPane.topAnchor="0.0">
          <top>

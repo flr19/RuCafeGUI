@@ -9,7 +9,11 @@ import javafx.scene.control.TextField;
 
 public class YourOrderController {
 
-    private Order currOrder;
+    private static StoreFrontController mainController;
+
+    private static Order order;
+
+    private static StoreOrders storeOrders;
 
     @FXML
     private ListView<String> ordersList;
@@ -28,17 +32,23 @@ public class YourOrderController {
     }
 
     @FXML
-    private void initialize(){
-        if(!currOrder.toStringList().isEmpty()){
-            ObservableList<String> order =
-                    FXCollections.observableArrayList(currOrder.toStringList());
-            ordersList = new ListView<String>(order);
-            subTotal.appendText("$ " + currOrder.getTotalPrice());
-            salesTax.appendText("$ " + currOrder.getTotalPrice()*0.06625);
-            total.appendText("$ " + (currOrder.getTotalPrice() + currOrder.getTotalPrice()*0.06625));
+    private void preset(){
+        if(order != null && !order.toStringList().isEmpty()){
+            ObservableList<String> orderString =
+                    FXCollections.observableArrayList(order.toStringList());
+            ordersList.setItems(orderString);
+            subTotal.clear();
+            salesTax.clear();
+            total.clear();
+            subTotal.appendText("$ " + order.getTotalPrice());
+            salesTax.appendText("$ " + order.getTotalPrice()*0.06625);
+            total.appendText("$ " + (order.getTotalPrice() + order.getTotalPrice()*0.06625));
         }
         else {
-            ordersList = new ListView<String>();
+            subTotal.clear();
+            salesTax.clear();
+            total.clear();
+            ordersList.getItems().clear();
             subTotal.appendText("$ " + 0.00);
             salesTax.appendText("$ " + 0.00);
             total.appendText("$ " + 0.00);
@@ -48,32 +58,47 @@ public class YourOrderController {
 
     @FXML
     void addToStore(ActionEvent event) {
-        //Add order to the store orders list
+        storeOrders.add(order.copyOfOrder());
+        order.resetOrder();
+        preset();
     }
 
     @FXML
     void removeSelectedItem(ActionEvent event) {
-        String item = ordersList.getSelectionModel().getSelectedItem();
-        //getting item number from the string (format -> "Item #: ...")
-        int currIndex = 5;
-        while(item.charAt(currIndex) != ':'){
-            currIndex++;
-        }
-        currOrder.remove(Integer.parseInt(item.substring(5, currIndex))-1);
-        if(!currOrder.toStringList().isEmpty()) {
-            ObservableList<String> order =
-                    FXCollections.observableArrayList(currOrder.toStringList());
-            ordersList = new ListView<String>(order);
-            subTotal.appendText("$ " + currOrder.getTotalPrice());
-            salesTax.appendText("$ " + currOrder.getTotalPrice() * 0.06625);
-            total.appendText("$ " + (currOrder.getTotalPrice() + currOrder.getTotalPrice() * 0.06625));
-        }
-        else {
-            ordersList = new ListView<String>();
-            subTotal.appendText("$ " + 0.00);
-            salesTax.appendText("$ " + 0.00);
-            total.appendText("$ " + 0.00);
+        if(ordersList.getSelectionModel().getSelectedItem() != null) {
+            String item = ordersList.getSelectionModel().getSelectedItem();
+            //getting item number from the string (format -> "Item #: ...")
+            int currIndex = 5;
+            while (item.charAt(currIndex) != ':') {
+                currIndex++;
+            }
+            order.remove(Integer.parseInt(item.substring(5, currIndex)) - 1);
+            if (!order.toStringList().isEmpty()) {
+                ObservableList<String> orderString =
+                        FXCollections.observableArrayList(order.toStringList());
+                ordersList.setItems(orderString);
+                subTotal.clear();
+                salesTax.clear();
+                total.clear();
+                subTotal.appendText("$ " + order.getTotalPrice());
+                salesTax.appendText("$ " + order.getTotalPrice() * 0.06625);
+                total.appendText("$ " + (order.getTotalPrice() + order.getTotalPrice() * 0.06625));
+            } else {
+                ordersList.getItems().clear();
+                subTotal.clear();
+                salesTax.clear();
+                total.clear();
+                subTotal.appendText("$ " + 0.00);
+                salesTax.appendText("$ " + 0.00);
+                total.appendText("$ " + 0.00);
+            }
         }
     }
 
+    public void setMainController(StoreFrontController storeFrontController) {
+        mainController = storeFrontController;
+        order = mainController.order;
+        storeOrders = mainController.storeOrders;
+        preset();
+    }
 }

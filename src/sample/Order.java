@@ -35,6 +35,12 @@ public class Order implements Customizable{
             MenuItem item = (MenuItem) obj;
             orders.add(item);
         }
+        else if(obj instanceof Order){
+            Order newOrd = (Order) obj;
+            for(int i = 0; i < newOrd.orders.size(); i++){
+                orders.add(newOrd.orders.get(i));
+            }
+        }
         return false;
     }
 
@@ -65,6 +71,16 @@ public class Order implements Customizable{
             result.add("Item " + (i+1) + ": " + orders.get(i).toString());
         }
         return result;
+    }
+
+    public void resetOrder(){
+        orders = new ArrayList<MenuItem>();
+    }
+
+    public Order copyOfOrder(){ //to reset the order in the GUI
+        Order dup = new Order();
+        dup.orders = orders;
+        return dup;
     }
 
 }

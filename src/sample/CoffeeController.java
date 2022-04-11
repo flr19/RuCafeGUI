@@ -1,6 +1,5 @@
 package sample;
 
-import com.sun.org.apache.xpath.internal.operations.Or;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -21,7 +20,11 @@ public class CoffeeController {
 
     private Coffee currCoffee;
 
-    Image image = new Image("");
+    private static StoreFrontController mainController;
+
+    private static Order order;
+
+    Image image = new Image("file:download.jpg");
 
     @FXML
     private ImageView coffeeImage;
@@ -50,29 +53,32 @@ public class CoffeeController {
     @FXML
     private TextField subTotal;
 
-    public CoffeeController() {
-        System.out.println("first");
-    }
-
     @FXML
     public void initialize() {
-        coffeeImage = new ImageView();
-        coffeeImage = new ImageView(image);
+        hasMilk.setSelected(false);
+        hasSyrup.setSelected(false);
+        hasCaramel.setSelected(false);
+        hasCream.setSelected(false);
+        hasWhippedCream.setSelected(false);
 
-        coffeeSize = new ComboBox<String>();
+        coffeeImage.setImage(image);
+
         coffeeSize.setItems(sizes);
         coffeeSize.getSelectionModel().select("Short");
 
-        quantity = new ComboBox<Integer>();
         quantity.setItems(quant);
-        quantity.getSelectionModel().select(1);
+        quantity.getSelectionModel().select(0);
 
         currCoffee = new Coffee(1, 1); //1 short coffee
+
+        subTotal.clear();
+        subTotal.appendText("$ " + currCoffee.itemPrice());
     }
 
     @FXML
     void addToOrder(ActionEvent event) {
-        //send coffee to the current order
+        order.add(currCoffee);
+        initialize();
     }
 
     @FXML
@@ -153,4 +159,8 @@ public class CoffeeController {
         subTotal.appendText("$ " + currCoffee.itemPrice());
     }
 
+    public void setMainController(StoreFrontController storeFrontController) {
+        mainController = storeFrontController;
+        order = mainController.order;
+    }
 }
