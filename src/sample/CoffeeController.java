@@ -4,11 +4,19 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+
+/**
+ * Controller for ordering coffee view
+ *
+ * @author Prince Rawal
+ * @author Farah Lubaba Rouf
+ */
 
 public class CoffeeController {
 
@@ -53,15 +61,22 @@ public class CoffeeController {
     @FXML
     private TextField subTotal;
 
+    Image coffeePic = new Image("file:pics/150929101049-black-coffee-stock.jpg");
+
+    /**
+     * initializes the Order Coffee view
+     */
+
     @FXML
     public void initialize() {
+        coffeeImage.setImage(coffeePic);
         hasMilk.setSelected(false);
         hasSyrup.setSelected(false);
         hasCaramel.setSelected(false);
         hasCream.setSelected(false);
         hasWhippedCream.setSelected(false);
 
-        coffeeImage.setImage(image);
+        //coffeeImage.setImage(image);
 
         coffeeSize.setItems(sizes);
         coffeeSize.getSelectionModel().select("Short");
@@ -72,14 +87,28 @@ public class CoffeeController {
         currCoffee = new Coffee(1, 1); //1 short coffee
 
         subTotal.clear();
-        subTotal.appendText("$ " + currCoffee.itemPrice());
+        subTotal.appendText("$ " + String.format("%.2f", currCoffee.itemPrice()));
     }
+
+    /**
+     * adds a coffee to the order
+     */
 
     @FXML
     void addToOrder(ActionEvent event) {
+
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Order Success");
+        alert.setHeaderText("Successfully added");
+        alert.setContentText("Coffee added to order.");
+        alert.showAndWait();
         order.add(currCoffee);
         initialize();
     }
+
+    /**
+     * adds caramel if caramel is ticked
+     */
 
     @FXML
     void updateCaramel(ActionEvent event) {
@@ -90,8 +119,12 @@ public class CoffeeController {
             currCoffee.remove("Caramel");
         }
         subTotal.clear();
-        subTotal.appendText("$ " + currCoffee.itemPrice());
+        subTotal.appendText("$ " + String.format("%.2f", currCoffee.itemPrice()));
     }
+
+    /**
+     * adds cream if it is ticked
+     */
 
     @FXML
     void updateCream(ActionEvent event) {
@@ -102,8 +135,12 @@ public class CoffeeController {
             currCoffee.remove("Cream");
         }
         subTotal.clear();
-        subTotal.appendText("$ " + currCoffee.itemPrice());
+        subTotal.appendText("$ " + String.format("%.2f", currCoffee.itemPrice()));
     }
+
+    /**
+     * adds milk if it is ticked
+     */
 
     @FXML
     void updateMilk(ActionEvent event) {
@@ -114,8 +151,12 @@ public class CoffeeController {
             currCoffee.remove("Milk");
         }
         subTotal.clear();
-        subTotal.appendText("$ " + currCoffee.itemPrice());
+        subTotal.appendText("$ " + String.format("%.2f", currCoffee.itemPrice()));
     }
+
+    /**
+     * increases quantity according to what is chosen
+     */
 
     @FXML
     void updateQuantity(ActionEvent event) {
@@ -123,8 +164,12 @@ public class CoffeeController {
         currCoffee.setNumItems(numCoffee);
 
         subTotal.clear();
-        subTotal.appendText("$ " + currCoffee.itemPrice());
+        subTotal.appendText("$ " + String.format("%.2f", currCoffee.itemPrice()));
     }
+
+    /**
+     * increases size of coffee
+     */
 
     @FXML
     void updateSize(ActionEvent event) {
@@ -132,8 +177,12 @@ public class CoffeeController {
         currCoffee.setSize(size);
 
         subTotal.clear();
-        subTotal.appendText("$ " + currCoffee.itemPrice());
+        subTotal.appendText("$ " + String.format("%.2f", currCoffee.itemPrice()));
     }
+
+    /**
+     * adds syrup if it is ticked
+     */
 
     @FXML
     void updateSyrup(ActionEvent event) {
@@ -144,8 +193,12 @@ public class CoffeeController {
             currCoffee.remove("Syrup");
         }
         subTotal.clear();
-        subTotal.appendText("$ " + currCoffee.itemPrice());
+        subTotal.appendText("$ " + String.format("%.2f", currCoffee.itemPrice()));
     }
+
+    /**
+     * adds whipped cream if it is ticked
+     */
 
     @FXML
     void updateWhippedCream(ActionEvent event) {
@@ -156,8 +209,13 @@ public class CoffeeController {
             currCoffee.remove("Whipped Cream");
         }
         subTotal.clear();
-        subTotal.appendText("$ " + currCoffee.itemPrice());
+        subTotal.appendText("$ " + String.format("%.2f", currCoffee.itemPrice()));
     }
+
+    /**
+     * Sets controller to main controller
+     * @param storeFrontController object reference to main controller
+     */
 
     public void setMainController(StoreFrontController storeFrontController) {
         mainController = storeFrontController;

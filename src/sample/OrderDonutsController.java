@@ -5,6 +5,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
@@ -13,6 +14,13 @@ import javafx.scene.image.ImageView;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+
+/**
+ * Controller for ordering donuts view
+ *
+ * @author Prince Rawal
+ * @author Farah Lubaba Rouf
+ */
 
 public class OrderDonutsController{
 
@@ -37,9 +45,9 @@ public class OrderDonutsController{
 
     private Order currOrder = new Order();
 
-    Image yeastDonutImage = new Image("file:download.jpg");
-    Image cakeDonutImage = new Image("file:download.jpg");
-    Image donutHolesImage = new Image("file:download.jpg");
+    Image yeastDonutImage = new Image("file:pics/download.jpg");
+    Image cakeDonutImage = new Image("file:pics/download.jpg");
+    Image donutHolesImage = new Image("file:pics/download.jpg");
 
     @FXML
     private ListView<String> availableDonuts;
@@ -58,6 +66,8 @@ public class OrderDonutsController{
 
     @FXML
     private TextField subTotal;
+
+
 
     @FXML
     public void initialize(){
@@ -90,12 +100,25 @@ public class OrderDonutsController{
 
     @FXML
     void addDonutOrder(ActionEvent event) {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Order Success");
+        alert.setHeaderText("Successfully added");
+        alert.setContentText("Donut added to order.");
+        alert.showAndWait();
         order.add(currOrder);
         initialize();
     }
 
     @FXML
     void removeDonuts(ActionEvent event) {
+        if(selectedDonuts.getSelectionModel().getSelectedItem() == null) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText("No donuts selected");
+            alert.setContentText("No donuts to remove.");
+            alert.showAndWait();
+            return;
+        }
         if(selectedDonuts.getSelectionModel().getSelectedItem() != null) {
             String donutSelected = selectedDonuts.getSelectionModel().getSelectedItem();
             int currIndex = 0;
@@ -110,7 +133,7 @@ public class OrderDonutsController{
             String donutFlavor = donutSelected.substring(6, commaIndex); //6 is the start of flavor name
             String donutType = donutSelected.substring(0, 3);
 
-            System.out.println("HGSDHVHV");
+            //System.out.println("HGSDHVHV");
 
             Donut donut;
             if (donutType.equals("Yst")) {
@@ -138,7 +161,7 @@ public class OrderDonutsController{
             currOrder.remove(donut);
             selectedDonuts.getItems().remove(donutSelected);
             subTotal.clear();
-            subTotal.appendText("$ " + currOrder.getTotalPrice());
+            subTotal.appendText("$ " + String.format("%.2f", currOrder.getTotalPrice()) );
 
             quantity.getSelectionModel().select(0);
         }
@@ -146,6 +169,14 @@ public class OrderDonutsController{
 
     @FXML
     void selectDonuts(ActionEvent event) {
+        if(availableDonuts.getSelectionModel().getSelectedItem() == null) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText("No donuts selected");
+            alert.setContentText("Please select a donut to order.");
+            alert.showAndWait();
+            return;
+        }
         if(availableDonuts.getSelectionModel().getSelectedItem() != null) {
             String donutType = selectDonutType.getSelectionModel().getSelectedItem();
             String donutFlavor = availableDonuts.getSelectionModel().getSelectedItem();
@@ -171,7 +202,7 @@ public class OrderDonutsController{
             currOrder.add(donut);
             selectedDonuts.getItems().add(type + " - " + donutFlavor + ", " + numDonuts);
             subTotal.clear();
-            subTotal.appendText("$ " + currOrder.getTotalPrice());
+            subTotal.appendText("$ " + String.format("%.2f", currOrder.getTotalPrice()));
 
             quantity.getSelectionModel().select(0);
         }

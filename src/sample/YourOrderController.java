@@ -4,6 +4,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 
@@ -40,9 +41,9 @@ public class YourOrderController {
             subTotal.clear();
             salesTax.clear();
             total.clear();
-            subTotal.appendText("$ " + order.getTotalPrice());
-            salesTax.appendText("$ " + order.getTotalPrice()*0.06625);
-            total.appendText("$ " + (order.getTotalPrice() + order.getTotalPrice()*0.06625));
+            subTotal.appendText("$ " + String.format("%.2f", order.getTotalPrice()));
+            salesTax.appendText("$ " + String.format("%.2f", order.getTotalPrice()*0.06625));
+            total.appendText("$ " + String.format("%.2f", (order.getTotalPrice() + order.getTotalPrice()*0.06625)) );
         }
         else {
             subTotal.clear();
@@ -58,6 +59,14 @@ public class YourOrderController {
 
     @FXML
     void addToStore(ActionEvent event) {
+        if(order.emptyOrder()) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText("No orders here");
+            alert.setContentText("Please place an order.");
+            alert.showAndWait();
+            return;
+        }
         storeOrders.add(order.copyOfOrder());
         order.resetOrder();
         preset();
@@ -80,9 +89,9 @@ public class YourOrderController {
                 subTotal.clear();
                 salesTax.clear();
                 total.clear();
-                subTotal.appendText("$ " + order.getTotalPrice());
-                salesTax.appendText("$ " + order.getTotalPrice() * 0.06625);
-                total.appendText("$ " + (order.getTotalPrice() + order.getTotalPrice() * 0.06625));
+                subTotal.appendText("$ " + String.format("%.2f", order.getTotalPrice()));
+                salesTax.appendText("$ " + String.format("%.2f", order.getTotalPrice()*0.06625));
+                total.appendText("$ " + String.format("%.2f", (order.getTotalPrice() + order.getTotalPrice()*0.06625)) );
             } else {
                 ordersList.getItems().clear();
                 subTotal.clear();
@@ -92,6 +101,14 @@ public class YourOrderController {
                 salesTax.appendText("$ " + 0.00);
                 total.appendText("$ " + 0.00);
             }
+        }
+        else {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText("No orders here");
+            alert.setContentText("Please select an order to remove.");
+            alert.showAndWait();
+            return;
         }
     }
 

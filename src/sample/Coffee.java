@@ -1,5 +1,13 @@
 package sample;
 
+/**
+ * An instance of this class is a menu item in an order. This class extends MenuItem class
+ * and implements the Customizable interface to provide the behavior of adding and removing the add-
+ * ins.
+ *
+ * @author Prince Rawal
+ * @author Farah Lubaba Rouf
+ */
 
 public class Coffee extends MenuItem implements  Customizable{
 
@@ -7,6 +15,7 @@ public class Coffee extends MenuItem implements  Customizable{
     private static final int ISTALL = 2;
     private static final int ISGRANDE = 3;
     private static final int ISVENTI = 4;
+    private static final double ADDINPRICE = 0.30;
 
     private int coffeeSize;
     private boolean hasCream;
@@ -14,6 +23,13 @@ public class Coffee extends MenuItem implements  Customizable{
     private boolean hasMilk;
     private boolean hasCaramel;
     private boolean hasWhippedCream;
+
+    /**
+     *  Constructor to create Coffee
+     *
+     * @param coffeeSize  size of the coffee
+     * @param numItems  number of coffees ordered
+     */
 
     public Coffee (int coffeeSize, int numItems) {
         super(numItems);
@@ -24,6 +40,12 @@ public class Coffee extends MenuItem implements  Customizable{
         hasCaramel = false;
         hasWhippedCream = false;
     }
+
+    /**
+     *  Method to set size of the coffee
+     *
+     * @param coffeeSize size of the coffee
+     */
 
     public void setSize(String coffeeSize) {
         if(coffeeSize.equals("Short")) {
@@ -39,6 +61,14 @@ public class Coffee extends MenuItem implements  Customizable{
             this.coffeeSize = ISVENTI;
         }
     }
+
+    /**
+     *  Method to add add-ins to the coffee
+     *
+     * @param obj is the coffee object we are adding to
+     * @return false if obj is not an instance of coffee, true otherwise
+     */
+
     @Override
     public boolean add(Object obj) {
         if (obj instanceof String) {
@@ -61,6 +91,13 @@ public class Coffee extends MenuItem implements  Customizable{
             return false;
         }
     }
+
+    /**
+     *  Method to remove add-ins from the coffee
+     *
+     * @param  obj is the coffee object we are removing from
+     * @return false if obj is not an instance of coffee, true otherwise
+     */
 
     @Override
     public boolean remove (Object obj) {
@@ -85,6 +122,12 @@ public class Coffee extends MenuItem implements  Customizable{
         }
     }
 
+    /**
+     *  Method to rcalculate price of coffee
+     *
+     * @return price of coffee after add-ins
+     */
+
     @Override
     public double itemPrice () {
         int numAddIns = 0;
@@ -105,9 +148,15 @@ public class Coffee extends MenuItem implements  Customizable{
         if(hasWhippedCream){
             numAddIns++;
         }
-        price += (numAddIns*0.30);
+        price += (numAddIns*ADDINPRICE);
         return price*getNumItems();
     }
+
+    /**
+     *  Method to compare 2 coffee items
+     *
+     * @return true if they are the same, false otherwise
+     */
 
     @Override
     public boolean equals(Object obj){
@@ -125,10 +174,22 @@ public class Coffee extends MenuItem implements  Customizable{
         return false;
     }
 
+    /**
+     *  Method to return coffee order as string
+     *
+     * @return the order in string format
+     */
+
     @Override
     public String toString(){
         return  "Coffee - " + getCoffeeType() + getAddIns() + "(" + getNumItems() + ")" + " ---> $" + itemPrice();
     }
+
+    /**
+     *  Method to show coffee type
+     *
+     * @return type of coffee
+     */
 
     public String getCoffeeType(){
         if (coffeeSize == ISSHORT){
@@ -142,6 +203,12 @@ public class Coffee extends MenuItem implements  Customizable{
         }
         return "Venti";
     }
+
+    /**
+     *  Method to get add-ins
+     *
+     * @return add-ins
+     */
 
     public String getAddIns(){
         String result = " ";

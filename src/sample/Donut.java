@@ -3,6 +3,13 @@ package sample;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+/**
+ * Extends MenuItem and has different types of Donuts that customers can order
+ *
+ * @author Prince Rawal
+ * @author Farah Lubaba Rouf
+ */
+
 public class Donut extends MenuItem{
 
     private static final int ISYEAST = 1;
@@ -25,11 +32,25 @@ public class Donut extends MenuItem{
     private int donutType; //1 yeast 2 cake donut 3 donut holes
     private String flavor;
 
+    /**
+     *  Constructor to create Donut
+     *
+     * @param donutType tyoe of donut
+     * @param flavor of donut
+     * @param numItems number of items
+     */
+
     public Donut (int donutType, String flavor, int numItems){
         super(numItems);
         this.donutType = donutType;
         this.flavor = flavor;
     }
+
+    /**
+     *  Method to rcalculate price of donut
+     *
+     * @return price of donut
+     */
 
     @Override
     public double itemPrice() {
@@ -43,6 +64,12 @@ public class Donut extends MenuItem{
             return getNumItems()*HOLECOST;
         }
     }
+
+    /**
+     *  Method to compare 2 donut items
+     *
+     * @return true if they are the same, false otherwise
+     */
 
     @Override
     public boolean equals(Object obj){
@@ -59,10 +86,22 @@ public class Donut extends MenuItem{
         return false;
     }
 
+    /**
+     *  Method to return donut order as string
+     *
+     * @return the order in string format
+     */
+
     @Override
     public String toString(){
         return getDonutType() + " - " + flavor + " (" + getNumItems() + ")" + " ---> $" + itemPrice();
     }
+
+    /**
+     *  Method to show donut type
+     *
+     * @return type of donut
+     */
 
     public String getDonutType(){
         if (donutType == ISYEAST){

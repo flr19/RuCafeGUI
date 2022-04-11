@@ -55,6 +55,26 @@ public class StoreOrders implements Customizable{
         return result;
     }
 
+    public String stringForExportingOrders (ArrayList<String> result) {
+        String orderList = " ";
+        int j=2;
+        orderList+= "Order number 1:" + result.get(0) ;
+        for(int i=1; i<  result.size(); i++) {
+//            if(result.get(i).equals(" ")) {
+//                continue;
+//
+//            }
+//            orderList += "Order number "+ j + " " + result.get(i) + "\n";
+//            j++;
+            if(result.get(i).equals(" ")) {
+                orderList += "\n" + "Order number " + j;
+                j++;
+            }
+            orderList += result.get(i);
+        }
+        return orderList;
+    }
+
     public ArrayList<String> getOrder(int orderNum){
         for(int i = 0; i < storeOrders.size(); i++){
             if(storeOrders.get(i).getOrderNum() == orderNum){
@@ -80,4 +100,9 @@ public class StoreOrders implements Customizable{
         }
         return 0;
     }
+
+    public int getSize() {
+        return storeOrders.size();
+    }
+
 }

@@ -6,7 +6,20 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+/**
+ * Contains the main method to start the application
+ *
+ * @author Prince Rawal
+ * @author Farah Lubaba Rouf
+ */
+
 public class Main extends Application {
+
+    /**
+     * Method to load the FXML and start the application
+     *
+     * @param primaryStage of the RUCafe
+     */
 
     @Override
     public void start(Stage primaryStage) throws Exception{
