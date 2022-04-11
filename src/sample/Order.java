@@ -51,6 +51,15 @@ public class Order implements Customizable{
             orders.remove(index);
             return true;
         }
+        else if(obj instanceof MenuItem){
+            MenuItem item = (MenuItem) obj;
+            for(int i = 0; i < orders.size(); i++){
+                if(orders.get(i).equals(item)){
+                    orders.remove(i);
+                    return true;
+                }
+            }
+        }
         return false;
     }
 
