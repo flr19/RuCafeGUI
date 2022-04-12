@@ -68,7 +68,10 @@ public class CoffeeController {
      */
 
     @FXML
-    public void initialize() {
+    public void preset() {
+
+        currCoffee = new Coffee(1, 1); //1 short coffee
+
         coffeeImage.setImage(coffeePic);
         hasMilk.setSelected(false);
         hasSyrup.setSelected(false);
@@ -83,8 +86,6 @@ public class CoffeeController {
 
         quantity.setItems(quant);
         quantity.getSelectionModel().select(0);
-
-        currCoffee = new Coffee(1, 1); //1 short coffee
 
         subTotal.clear();
         subTotal.appendText("$ " + String.format("%.2f", currCoffee.itemPrice()));
@@ -103,7 +104,7 @@ public class CoffeeController {
         alert.setContentText("Coffee added to order.");
         alert.showAndWait();
         order.add(currCoffee);
-        initialize();
+        preset();
     }
 
     /**
@@ -220,5 +221,6 @@ public class CoffeeController {
     public void setMainController(StoreFrontController storeFrontController) {
         mainController = storeFrontController;
         order = mainController.order;
+        preset();
     }
 }
