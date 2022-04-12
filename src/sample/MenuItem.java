@@ -14,45 +14,43 @@ public abstract class MenuItem {
 
     /**
      * Abstract method to return price of item
-     *
      */
 
     public abstract double itemPrice();
 
     /**
      * Abstract method to return order in string format
-     *
      */
 
     public abstract String toString();
 
     /**
      * Method to return number of items in order
-     * @param numItems is n umber of items in order
      *
+     * @param numItems is n umber of items in order
      */
 
-    public MenuItem(int numItems){
+    public MenuItem(int numItems) {
         this.numItems = numItems;
     }
 
     /**
      * Sets number of items in order
-     * @param numItems is number of items
      *
+     * @param numItems is number of items
      */
 
-    public void setNumItems (int numItems){
+    public void setNumItems(int numItems) {
         this.numItems = numItems;
     }
 
     /**
      * Gets number of items in an order
-     * @return number of items
      *
+     * @return number of items
      */
 
-    public int getNumItems (){
+    public int getNumItems() {
         return numItems;
     }
 }

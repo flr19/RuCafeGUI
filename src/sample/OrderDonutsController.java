@@ -22,7 +22,7 @@ import java.util.ResourceBundle;
  * @author Farah Lubaba Rouf
  */
 
-public class OrderDonutsController{
+public class OrderDonutsController {
 
 
     private static StoreFrontController mainController;
@@ -37,10 +37,10 @@ public class OrderDonutsController{
 
     private ObservableList<String> typeYeast;
 
-    private ObservableList<String> typeCake=
+    private ObservableList<String> typeCake =
             FXCollections.observableArrayList("Chocolate", "Mango", "Sugar", "Jelly");
 
-    private ObservableList<String> typeHole=
+    private ObservableList<String> typeHole =
             FXCollections.observableArrayList("Glazed", "Vanilla", "Jelly", "Sugar");
 
     private Order currOrder = new Order();
@@ -68,9 +68,12 @@ public class OrderDonutsController{
     private TextField subTotal;
 
 
+    /**
+     * initializes the Order Donuts view
+     */
 
     @FXML
-    public void initialize(){
+    public void initialize() {
 
         typeYeast = FXCollections.observableArrayList
                 ("Glazed Chocolate", "Vanilla Creme", "Strawberry Frosted", "Jelly");
@@ -98,20 +101,38 @@ public class OrderDonutsController{
         currOrder = new Order();
     }
 
+    /**
+     * adds a donut to the order
+     */
+
     @FXML
     void addDonutOrder(ActionEvent event) {
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Order Success");
-        alert.setHeaderText("Successfully added");
-        alert.setContentText("Donut added to order.");
-        alert.showAndWait();
-        order.add(currOrder);
-        initialize();
+        if(selectedDonuts.getItems().isEmpty()) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Order Failed");
+            alert.setHeaderText("Please add donuts to order");
+            alert.setContentText("No donuts to order.");
+            alert.showAndWait();
+        } else {
+
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Order Success");
+            alert.setHeaderText("Successfully added");
+            alert.setContentText("Donut added to order.");
+            alert.showAndWait();
+
+            order.add(currOrder);
+            initialize();
+        }
     }
+
+    /**
+     * removes a donut from the order
+     */
 
     @FXML
     void removeDonuts(ActionEvent event) {
-        if(selectedDonuts.getSelectionModel().getSelectedItem() == null) {
+        if (selectedDonuts.getSelectionModel().getSelectedItem() == null) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error");
             alert.setHeaderText("No donuts selected");
@@ -119,7 +140,7 @@ public class OrderDonutsController{
             alert.showAndWait();
             return;
         }
-        if(selectedDonuts.getSelectionModel().getSelectedItem() != null) {
+        if (selectedDonuts.getSelectionModel().getSelectedItem() != null) {
             String donutSelected = selectedDonuts.getSelectionModel().getSelectedItem();
             int currIndex = 0;
             int commaIndex = 0;
@@ -148,28 +169,30 @@ public class OrderDonutsController{
             }
 
             String donutTypeSelected = selectDonutType.getSelectionModel().getSelectedItem();
-            if(donutTypeSelected.equals("Yeast Donuts")){
+            if (donutTypeSelected.equals("Yeast Donuts")) {
                 availableDonuts.setItems(typeYeast);
-            }
-            else if(donutTypeSelected.equals("Cake Donuts")){
+            } else if (donutTypeSelected.equals("Cake Donuts")) {
                 availableDonuts.setItems(typeCake);
-            }
-            else{
+            } else {
                 availableDonuts.setItems(typeHole);
             }
 
             currOrder.remove(donut);
             selectedDonuts.getItems().remove(donutSelected);
             subTotal.clear();
-            subTotal.appendText("$ " + String.format("%.2f", currOrder.getTotalPrice()) );
+            subTotal.appendText("$ " + String.format("%.2f", currOrder.getTotalPrice()));
 
             quantity.getSelectionModel().select(0);
         }
     }
 
+    /**
+     * Select donuts to order and move from the combo box
+     */
+
     @FXML
     void selectDonuts(ActionEvent event) {
-        if(availableDonuts.getSelectionModel().getSelectedItem() == null) {
+        if (availableDonuts.getSelectionModel().getSelectedItem() == null) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error");
             alert.setHeaderText("No donuts selected");
@@ -177,7 +200,7 @@ public class OrderDonutsController{
             alert.showAndWait();
             return;
         }
-        if(availableDonuts.getSelectionModel().getSelectedItem() != null) {
+        if (availableDonuts.getSelectionModel().getSelectedItem() != null) {
             String donutType = selectDonutType.getSelectionModel().getSelectedItem();
             String donutFlavor = availableDonuts.getSelectionModel().getSelectedItem();
             int numDonuts = quantity.getSelectionModel().getSelectedItem();
@@ -208,23 +231,31 @@ public class OrderDonutsController{
         }
     }
 
+    /**
+     * change image according to donut type selected
+     */
+
     @FXML
     void viewTypeDonut(ActionEvent event) {
         String selected = selectDonutType.getSelectionModel().getSelectedItem();
-        if(selected.equals("Yeast Donuts")){
+        if (selected.equals("Yeast Donuts")) {
             availableDonuts.setItems(typeYeast);
             imageBanner.setImage(yeastDonutImage);
-        }
-        else if(selected.equals("Cake Donuts")){
+        } else if (selected.equals("Cake Donuts")) {
             availableDonuts.setItems(typeCake);
             imageBanner.setImage(cakeDonutImage);
-        }
-        else{
+        } else {
             availableDonuts.setItems(typeHole);
             imageBanner.setImage(donutHolesImage);
         }
         quantity.getSelectionModel().select(0);
     }
+
+    /**
+     * Sets controller to main controller
+     *
+     * @param storeFrontController object reference to main controller
+     */
 
     public void setMainController(StoreFrontController storeFrontController) {
         mainController = storeFrontController;

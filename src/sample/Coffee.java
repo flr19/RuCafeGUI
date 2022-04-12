@@ -9,7 +9,7 @@ package sample;
  * @author Farah Lubaba Rouf
  */
 
-public class Coffee extends MenuItem implements  Customizable{
+public class Coffee extends MenuItem implements Customizable {
 
     private static final int ISSHORT = 1;
     private static final int ISTALL = 2;
@@ -25,13 +25,13 @@ public class Coffee extends MenuItem implements  Customizable{
     private boolean hasWhippedCream;
 
     /**
-     *  Constructor to create Coffee
+     * Constructor to create Coffee
      *
-     * @param coffeeSize  size of the coffee
-     * @param numItems  number of coffees ordered
+     * @param coffeeSize size of the coffee
+     * @param numItems   number of coffees ordered
      */
 
-    public Coffee (int coffeeSize, int numItems) {
+    public Coffee(int coffeeSize, int numItems) {
         super(numItems);
         this.coffeeSize = 1; //Short
         hasCream = false;
@@ -42,28 +42,25 @@ public class Coffee extends MenuItem implements  Customizable{
     }
 
     /**
-     *  Method to set size of the coffee
+     * Method to set size of the coffee
      *
      * @param coffeeSize size of the coffee
      */
 
     public void setSize(String coffeeSize) {
-        if(coffeeSize.equals("Short")) {
+        if (coffeeSize.equals("Short")) {
             this.coffeeSize = ISSHORT;
-        }
-        else if (coffeeSize.equals("Tall")) {
+        } else if (coffeeSize.equals("Tall")) {
             this.coffeeSize = ISTALL;
-        }
-        else if (coffeeSize.equals("Grande")) {
+        } else if (coffeeSize.equals("Grande")) {
             this.coffeeSize = ISGRANDE;
-        }
-        else if (coffeeSize.equals("Venti")) {
+        } else if (coffeeSize.equals("Venti")) {
             this.coffeeSize = ISVENTI;
         }
     }
 
     /**
-     *  Method to add add-ins to the coffee
+     * Method to add add-ins to the coffee
      *
      * @param obj is the coffee object we are adding to
      * @return false if obj is not an instance of coffee, true otherwise
@@ -93,14 +90,14 @@ public class Coffee extends MenuItem implements  Customizable{
     }
 
     /**
-     *  Method to remove add-ins from the coffee
+     * Method to remove add-ins from the coffee
      *
-     * @param  obj is the coffee object we are removing from
+     * @param obj is the coffee object we are removing from
      * @return false if obj is not an instance of coffee, true otherwise
      */
 
     @Override
-    public boolean remove (Object obj) {
+    public boolean remove(Object obj) {
         if (obj instanceof String) {
             String addOn = (String) obj;
             if (addOn.equals("Cream")) {
@@ -123,49 +120,49 @@ public class Coffee extends MenuItem implements  Customizable{
     }
 
     /**
-     *  Method to rcalculate price of coffee
+     * Method to rcalculate price of coffee
      *
      * @return price of coffee after add-ins
      */
 
     @Override
-    public double itemPrice () {
+    public double itemPrice() {
         int numAddIns = 0;
         double price = 1.69;
-        price += 0.4*(coffeeSize-1);
-        if(hasCream) {
+        price += 0.4 * (coffeeSize - 1);
+        if (hasCream) {
             numAddIns++;
         }
-        if(hasSyrup) {
+        if (hasSyrup) {
             numAddIns++;
         }
-        if(hasMilk) {
+        if (hasMilk) {
             numAddIns++;
         }
-        if(hasCaramel) {
+        if (hasCaramel) {
             numAddIns++;
         }
-        if(hasWhippedCream){
+        if (hasWhippedCream) {
             numAddIns++;
         }
-        price += (numAddIns*ADDINPRICE);
-        return price*getNumItems();
+        price += (numAddIns * ADDINPRICE);
+        return price * getNumItems();
     }
 
     /**
-     *  Method to compare 2 coffee items
+     * Method to compare 2 coffee items
      *
      * @return true if they are the same, false otherwise
      */
 
     @Override
-    public boolean equals(Object obj){
-        if(obj instanceof Coffee){
-            Coffee coffee = (Coffee)obj;
-            if(coffeeSize == coffee.coffeeSize) {
-                if(hasCream == coffee.hasCream  && hasSyrup == coffee.hasSyrup && hasMilk == coffee.hasMilk &&
-                        hasCaramel == coffee.hasCaramel && hasWhippedCream == coffee.hasWhippedCream){
-                    if(getNumItems() == coffee.getNumItems()){
+    public boolean equals(Object obj) {
+        if (obj instanceof Coffee) {
+            Coffee coffee = (Coffee) obj;
+            if (coffeeSize == coffee.coffeeSize) {
+                if (hasCream == coffee.hasCream && hasSyrup == coffee.hasSyrup && hasMilk == coffee.hasMilk &&
+                        hasCaramel == coffee.hasCaramel && hasWhippedCream == coffee.hasWhippedCream) {
+                    if (getNumItems() == coffee.getNumItems()) {
                         return true;
                     }
                 }
@@ -175,57 +172,55 @@ public class Coffee extends MenuItem implements  Customizable{
     }
 
     /**
-     *  Method to return coffee order as string
+     * Method to return coffee order as string
      *
      * @return the order in string format
      */
 
     @Override
-    public String toString(){
-        return  "Coffee - " + getCoffeeType() + getAddIns() + "(" + getNumItems() + ")" + " ---> $" + itemPrice();
+    public String toString() {
+        return "Coffee - " + getCoffeeType() + getAddIns() + "(" + getNumItems() + ")" + " ---> $" + itemPrice();
     }
 
     /**
-     *  Method to show coffee type
+     * Method to show coffee type
      *
      * @return type of coffee
      */
 
-    public String getCoffeeType(){
-        if (coffeeSize == ISSHORT){
+    public String getCoffeeType() {
+        if (coffeeSize == ISSHORT) {
             return "Short";
-        }
-        else if (coffeeSize == ISTALL){
+        } else if (coffeeSize == ISTALL) {
             return "Tall";
-        }
-        else if (coffeeSize == ISGRANDE){
+        } else if (coffeeSize == ISGRANDE) {
             return "Grande";
         }
         return "Venti";
     }
 
     /**
-     *  Method to get add-ins
+     * Method to get add-ins
      *
      * @return add-ins
      */
 
-    public String getAddIns(){
+    public String getAddIns() {
         String result = " ";
 
-        if(hasCream) {
+        if (hasCream) {
             result = result + "Cream, ";
         }
-        if(hasSyrup) {
+        if (hasSyrup) {
             result = result + "Syrup, ";
         }
-        if(hasMilk) {
+        if (hasMilk) {
             result = result + "Milk, ";
         }
-        if(hasCaramel) {
+        if (hasCaramel) {
             result = result + "Caramel, ";
         }
-        if(hasWhippedCream){
+        if (hasWhippedCream) {
             result = result + "Whipped Cream, ";
         }
 
@@ -233,7 +228,7 @@ public class Coffee extends MenuItem implements  Customizable{
             return " ";
         }
 
-        return " [" + result.substring(1, result.length()-2) + "] ";
+        return " [" + result.substring(1, result.length() - 2) + "] ";
 
     }
 }

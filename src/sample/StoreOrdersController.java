@@ -16,6 +16,13 @@ import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.util.Optional;
 
+/**
+ * Controller for Store Orders view
+ *
+ * @author Prince Rawal
+ * @author Farah Lubaba Rouf
+ */
+
 public class StoreOrdersController {
 
     private static StoreFrontController mainController;
@@ -31,19 +38,27 @@ public class StoreOrdersController {
     @FXML
     private ListView<String> ordersList;
 
+    /**
+     * initializes the Store Orders view
+     */
+
     @FXML
-    private void preset(){
+    private void preset() {
         ordersList.getItems().clear();
         ObservableList<Integer> orderNums =
-                        FXCollections.observableArrayList(storeOrders.getOrderNumber());
+                FXCollections.observableArrayList(storeOrders.getOrderNumber());
         orderNumber.setItems(orderNums);
         getTotalCost.clear();
         getTotalCost.appendText("$ " + 0.0);
     }
 
+    /**
+     * Cancel selected order
+     */
+
     @FXML
     void cancelSelectedOrder(ActionEvent event) {
-        if(orderNumber.getSelectionModel().getSelectedItem() != null) {
+        if (orderNumber.getSelectionModel().getSelectedItem() != null) {
             storeOrders.remove(orderNumber.getSelectionModel().getSelectedItem());
             preset();
         }
@@ -58,9 +73,13 @@ public class StoreOrdersController {
         }
     }
 
+    /**
+     * Exports order to a text file
+     */
+
     @FXML
     void exportOrder(ActionEvent event) throws FileNotFoundException {
-        if(storeOrders.getSize()==0) {
+        if (storeOrders.getSize() == 0) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error");
             alert.setHeaderText("No orders here");
@@ -74,17 +93,21 @@ public class StoreOrdersController {
                 new FileChooser.ExtensionFilter("All Files", "*.*"));
         Stage stage = new Stage();
         File targetFile = chooser.showSaveDialog(stage);
-       PrintWriter pw = new PrintWriter(targetFile);
-       pw.print(storeOrders.stringForExportingOrders(storeOrders.toStringList()));
-      //  pw.print(storeOrders.toStringList());
+        PrintWriter pw = new PrintWriter(targetFile);
+        pw.print(storeOrders.stringForExportingOrders(storeOrders.toStringList()));
+        //  pw.print(storeOrders.toStringList());
         pw.close();
 
         return;
     }
 
+    /**
+     * Shows the orders of each customer
+     */
+
     @FXML
     void showOrder(ActionEvent event) {
-        if(orderNumber.getSelectionModel().getSelectedItem() != null) {
+        if (orderNumber.getSelectionModel().getSelectedItem() != null) {
             int orderN = orderNumber.getSelectionModel().getSelectedItem();
             ObservableList<String> orderDetails =
                     FXCollections.observableArrayList(storeOrders.getOrder(orderN));
@@ -93,6 +116,12 @@ public class StoreOrdersController {
             getTotalCost.appendText("$ " + String.format("%.2f", storeOrders.getCost(orderN)));
         }
     }
+
+    /**
+     * Sets controller to main controller
+     *
+     * @param storeFrontController object reference to main controller
+     */
 
     public void setMainController(StoreFrontController storeFrontController) {
         mainController = storeFrontController;

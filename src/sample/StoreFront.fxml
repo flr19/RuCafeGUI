@@ -43,9 +43,9 @@
                   </Button>
                   <Button contentDisplay="TOP" mnemonicParsing="false" onAction="#orderCoffee" text="Order this">
                      <graphic>
-                        <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="coffeeBanner" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@l-intro-1645231221.jpg" />
+                              <Image url="@../../pics/l-intro-1645231221.jpg" />
                            </image>
                         </ImageView>
                      </graphic>
@@ -64,18 +64,18 @@
                <children>
                   <Button alignment="BOTTOM_LEFT" contentDisplay="TOP" mnemonicParsing="false" onAction="#yourOrder" prefHeight="157.0" prefWidth="127.0" text="Your Order">
                      <graphic>
-                        <ImageView fitHeight="125.0" fitWidth="111.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="yourOrderBanner" fitHeight="125.0" fitWidth="111.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@istockphoto-1129280887-612x612.jpg" />
+                              <Image url="@../../pics/istockphoto-1129280887-612x612.jpg" />
                            </image>
                         </ImageView>
                      </graphic>
                   </Button>
                   <Button contentDisplay="TOP" mnemonicParsing="false" onAction="#storeOrders" prefHeight="153.0" prefWidth="182.0" text="Store Orders">
                      <graphic>
-                        <ImageView fitHeight="126.0" fitWidth="161.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="storeOrdersBanner" fitHeight="126.0" fitWidth="161.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@225-2259002_transparent-balance-scale-clipart-clipboard-coloring-page-hd.png" />
+                              <Image url="@../../pics/225-2259002_transparent-balance-scale-clipart-clipboard-coloring-page-hd.png" />
                            </image>
                         </ImageView>
                      </graphic>

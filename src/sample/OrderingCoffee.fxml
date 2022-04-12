@@ -26,7 +26,7 @@
     <center>
         <ImageView fx:id="coffeeImage" fitHeight="194.0" fitWidth="281.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="TOP_CENTER">
             <image>
-                <Image url="@l-intro-1645231221.jpg" />
+                <Image url="@../../pics/150929101049-black-coffee-stock.jpg" />
             </image>
         </ImageView>
     </center>

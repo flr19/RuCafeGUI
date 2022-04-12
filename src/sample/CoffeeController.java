@@ -61,7 +61,7 @@ public class CoffeeController {
     @FXML
     private TextField subTotal;
 
-    Image coffeePic = new Image("file:pics/150929101049-black-coffee-stock.jpg");
+    Image coffeePic = new Image("file:pics/coffeee.jpg");
 
     /**
      * initializes the Order Coffee view
@@ -98,7 +98,7 @@ public class CoffeeController {
     @FXML
     void addToOrder(ActionEvent event) {
 
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Order Success");
         alert.setHeaderText("Successfully added");
         alert.setContentText("Coffee added to order.");
@@ -215,6 +215,7 @@ public class CoffeeController {
 
     /**
      * Sets controller to main controller
+     *
      * @param storeFrontController object reference to main controller
      */
 
