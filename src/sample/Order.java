@@ -67,7 +67,7 @@ public class Order implements Customizable{
         if(obj instanceof MenuItem) {
             MenuItem item = (MenuItem) obj;
             orders.add(item);
-            System.out.println(item.toString());
+
         }
         else if(obj instanceof Order){
             Order newOrd = (Order) obj;

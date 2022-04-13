@@ -92,7 +92,7 @@ public class Donut extends MenuItem {
 
     @Override
     public String toString() {
-        return getDonutType() + " - " + flavor + " (" + getNumItems() + ")" + " ---> $" + itemPrice();
+        return getDonutType() + " - " + flavor + " (" + getNumItems() + ")" + " ---> $" + String.format("%.2f" ,itemPrice());
     }
 
     /**
@@ -110,54 +110,4 @@ public class Donut extends MenuItem {
         return "Donut Holes";
     }
 
-//    @Override
-//    public boolean add (Object obj) {
-//        if(obj instanceof String){
-//            String donut = (String)obj;
-//            String flavor;
-//            int quantity;
-//            int currIndex = 0;
-//            int commaIndex = 0;
-//            while(currIndex < donut.length()){
-//                if(donut.charAt(currIndex) == ','){
-//                    commaIndex = currIndex;
-//                }
-//                currIndex++;
-//            }
-//            flavor = donut.substring(0, commaIndex);
-//            quantity = Integer.parseInt(donut.substring(commaIndex+2));
-//            donutTypesSelected.add(flavor + ", " + quantity);
-//            donutQuantity += quantity;
-//            return availableDonutTypes.remove(flavor);
-//        }
-//        else{
-//            return false;
-//        }
-//    }
-//
-//    @Override
-//    public boolean remove (Object obj) {
-//        if(obj instanceof String){
-//            String flavor = (String)obj;
-//            for (int i = 0; i < donutTypesSelected.size(); i++){
-//                int currIndex = 0;
-//                int commaIndex = 0;
-//                while(currIndex < donutTypesSelected.get(i).length()){
-//                    if(donutTypesSelected.get(i).charAt(currIndex) == ','){
-//                        commaIndex = currIndex;
-//                    }
-//                    currIndex++;
-//                }
-//                if((donutTypesSelected.get(i).substring(0, commaIndex)).equals(flavor)){
-//                    availableDonutTypes.add(flavor);
-//                    donutQuantity -= Integer.parseInt(donutTypesSelected.get(i).substring(commaIndex+2));
-//                    //+2 because there's a space character after the comma
-//                    donutTypesSelected.remove(i);
-//                    return true;
-//                }
-//            }
-//            return false;
-//        }
-//        return false;
-//    }
 }

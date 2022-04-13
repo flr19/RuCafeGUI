@@ -154,7 +154,7 @@ public class OrderDonutsController {
             String donutFlavor = donutSelected.substring(6, commaIndex); //6 is the start of flavor name
             String donutType = donutSelected.substring(0, 3);
 
-            //System.out.println("HGSDHVHV");
+
 
             Donut donut;
             if (donutType.equals("Yst")) {

@@ -96,12 +96,6 @@ public class StoreOrders implements Customizable {
         int j = 2;
         orderList += "Order number 1:" + result.get(0);
         for (int i = 1; i < result.size(); i++) {
-//            if(result.get(i).equals(" ")) {
-//                continue;
-//
-//            }
-//            orderList += "Order number "+ j + " " + result.get(i) + "\n";
-//            j++;
             if (result.get(i).equals(" ")) {
                 orderList += "\n" + "Order number " + j;
                 j++;

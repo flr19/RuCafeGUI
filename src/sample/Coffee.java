@@ -179,7 +179,7 @@ public class Coffee extends MenuItem implements Customizable {
 
     @Override
     public String toString() {
-        return "Coffee - " + getCoffeeType() + getAddIns() + "(" + getNumItems() + ")" + " ---> $" + itemPrice();
+        return "Coffee - " + getCoffeeType() + getAddIns() + "(" + getNumItems() + ")" + " ---> $" + String.format("%.2f",itemPrice());
     }
 
     /**
